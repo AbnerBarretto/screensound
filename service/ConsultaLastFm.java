@@ -2,6 +2,7 @@ package br.com.alura.screensound.service;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.github.cdimascio.dotenv.Dotenv;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -9,7 +10,13 @@ import okhttp3.Response;
 
 public class ConsultaLastFm {
 
-    private static final String API_KEY = "99f2d5095a9ca9991ae391cba7641d2a";
+    private static final String API_KEY;
+
+    static {
+        Dotenv dotenv = Dotenv.load();
+        API_KEY = dotenv.get("LASTFM_API_KEY");
+    }
+
     private static final String API_URL = "http://ws.audioscrobbler.com/2.0/";
 
     public static String buscarBioArtista(String nomeArtista) {
